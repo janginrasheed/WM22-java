@@ -23,6 +23,21 @@ public class DatabaseConfiguration {
     }
 
     @Bean
+    public GroupsTeamsDao groupsTeamsDao(Jdbi jdbi) {
+        return jdbi.onDemand(GroupsTeamsDao.class);
+    }
+
+    @Bean
+    public MatchesDao matchesDao(Jdbi jdbi) {
+        return jdbi.onDemand(MatchesDao.class);
+    }
+
+    @Bean
+    public PredictionsDao predictionsDao(Jdbi jdbi) {
+        return jdbi.onDemand(PredictionsDao.class);
+    }
+
+    @Bean
     public UsersDao usersDao(Jdbi jdbi) {
         return jdbi.onDemand(UsersDao.class);
     }
