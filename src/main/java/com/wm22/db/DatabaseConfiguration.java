@@ -23,11 +23,6 @@ public class DatabaseConfiguration {
     }
 
     @Bean
-    public GroupsTeamsDao groupsTeamsDao(Jdbi jdbi) {
-        return jdbi.onDemand(GroupsTeamsDao.class);
-    }
-
-    @Bean
     public MatchesDao matchesDao(Jdbi jdbi) {
         return jdbi.onDemand(MatchesDao.class);
     }
@@ -40,6 +35,11 @@ public class DatabaseConfiguration {
     @Bean
     public UsersDao usersDao(Jdbi jdbi) {
         return jdbi.onDemand(UsersDao.class);
+    }
+
+    @Bean
+    public TeamsDao teamsDao(Jdbi jdbi) {
+        return jdbi.onDemand(TeamsDao.class);
     }
 
 }
