@@ -1,4 +1,4 @@
-package com.wm22.model;
+package com.wm22.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package com.wm22.model;
+package com.wm22.domain;
 
 public class Stage {
     private int id;

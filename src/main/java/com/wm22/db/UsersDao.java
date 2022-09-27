@@ -1,6 +1,6 @@
 package com.wm22.db;
 
-import com.wm22.model.User;
+import com.wm22.domain.User;
 import org.jdbi.v3.sqlobject.config.RegisterFieldMapper;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 
