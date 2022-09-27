@@ -1,7 +1,11 @@
 package com.wm22.domain;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.util.Date;
 
+@Data
+@NoArgsConstructor
 public class Match {
     private int id;
     private int stageId;

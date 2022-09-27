@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @CrossOrigin("*")
 @RestController
@@ -29,9 +30,11 @@ public class WM22Controller {
     PredictionsDao predictionsDao;
     UsersDao usersDao;
     TeamsDao teamsDao;
-    ArrayList<Match> matchesToInsert;
-    ArrayList<Team> teamsToInsert = new ArrayList<>();
+
     Team teamToInsert;
+    ArrayList<Team> teamsToInsert = new ArrayList<>();
+    Match matchToInsert;
+    ArrayList<Match> matchesToInsert;
 
     public WM22Controller(MatchesDao matchesDao,
                           PredictionsDao predictionsDao,
@@ -53,6 +56,11 @@ public class WM22Controller {
         return teamsDao.getAllTeams();
     }
 
+    @GetMapping(path = "/matches")
+    public List<Match> getAllMatches() {
+        return matchesDao.getAllMatches();
+    }
+
     @PostConstruct
     public void getDataFromApi() throws IOException, InterruptedException {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -68,21 +76,15 @@ public class WM22Controller {
 
         //Teams Tabelle ausfüllen
         root.matches.forEach(match -> {
-            teamToInsert = new Team();
-            teamToInsert.setId(match.homeTeam.id);
-            teamToInsert.setName(match.homeTeam.name);
-            teamToInsert.setShortName(match.homeTeam.tla);
-            teamToInsert.setFlag(match.homeTeam.crest);
-            teamToInsert.setGroupName(match.group.charAt(6));
-            teamsToInsert.add(teamToInsert);
-
-            teamToInsert = new Team();
-            teamToInsert.setId(match.awayTeam.id);
-            teamToInsert.setName(match.awayTeam.name);
-            teamToInsert.setShortName(match.awayTeam.tla);
-            teamToInsert.setFlag(match.awayTeam.crest);
-            teamToInsert.setGroupName(match.group.charAt(6));
-            teamsToInsert.add(teamToInsert);
+            if (Objects.equals(match.stage, "GROUP_STAGE")) {
+                teamToInsert = new Team();
+                teamToInsert.setId(match.homeTeam.id);
+                teamToInsert.setName(match.homeTeam.name);
+                teamToInsert.setShortName(match.homeTeam.tla);
+                teamToInsert.setFlag(match.homeTeam.crest);
+                teamToInsert.setGroupName(match.group.charAt(6));
+                teamsToInsert.add(teamToInsert);
+            }
         });
 
         teamsToInsert.forEach(team -> {
@@ -90,6 +92,20 @@ public class WM22Controller {
                 teamsDao.insertTeam(team);
             }
         });
+
+        //Matches Tabelle ausfüllen
+        root.matches.forEach(match -> {
+            if (Objects.equals(match.stage, "GROUP_STAGE")) {
+                matchToInsert = new Match();
+                matchToInsert.setId(match.id);
+                matchToInsert.setStageId(1);
+                matchToInsert.setFirstTeamId(match.homeTeam.id);
+                matchToInsert.setSecondTeamId(match.awayTeam.id);
+                matchToInsert.setDate(match.utcDate);
+                matchesDao.insertMatch(matchToInsert);
+            }
+        });
+
     }
 
 }
