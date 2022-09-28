@@ -95,15 +95,42 @@ public class WM22Controller {
 
         //Matches Tabelle ausfüllen
         root.matches.forEach(match -> {
+            matchToInsert = new Match();
             if (Objects.equals(match.stage, "GROUP_STAGE")) {
-                matchToInsert = new Match();
                 matchToInsert.setId(match.id);
                 matchToInsert.setStageId(1);
                 matchToInsert.setFirstTeamId(match.homeTeam.id);
                 matchToInsert.setSecondTeamId(match.awayTeam.id);
                 matchToInsert.setDate(match.utcDate);
+                matchesDao.insertMatchWithTeams(matchToInsert);
+            } else {
+                matchToInsert.setId(match.id);
+                switch (match.stage) {
+                    case "LAST_16": {
+                        matchToInsert.setStageId(2);
+                        break;
+                    }
+                    case "QUARTER_FINALS": {
+                        matchToInsert.setStageId(3);
+                        break;
+                    }
+                    case "SEMI_FINALS": {
+                        matchToInsert.setStageId(4);
+                        break;
+                    }
+                    case "THIRD_PLACE": {
+                        matchToInsert.setStageId(5);
+                        break;
+                    }
+                    case "FINAL": {
+                        matchToInsert.setStageId(6);
+                        break;
+                    }
+                }
+                matchToInsert.setDate(match.utcDate);
                 matchesDao.insertMatch(matchToInsert);
             }
+
         });
 
     }

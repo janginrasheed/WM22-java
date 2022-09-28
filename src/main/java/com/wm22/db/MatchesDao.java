@@ -15,6 +15,10 @@ public interface MatchesDao {
 
     @RegisterFieldMapper(Match.class)
     @SqlUpdate("insert into matches (id, stage_id, first_team_id, second_team_id, date) values (:id, :stageId, :firstTeamId, :secondTeamId, :date)")
+    int insertMatchWithTeams(@BindBean Match match);
+
+    @RegisterFieldMapper(Match.class)
+    @SqlUpdate("insert into matches (id, stage_id, date) values (:id, :stageId, :date)")
     int insertMatch(@BindBean Match match);
 
 }
