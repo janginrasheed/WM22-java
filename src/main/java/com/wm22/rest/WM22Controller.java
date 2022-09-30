@@ -9,12 +9,11 @@ import com.wm22.domain.Match;
 import com.wm22.domain.Team;
 import com.wm22.domain.User;
 import com.wm22.model.Root;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.websocket.server.PathParam;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,21 +43,6 @@ public class WM22Controller {
         this.predictionsDao = predictionsDao;
         this.usersDao = usersDao;
         this.teamsDao = teamsDao;
-    }
-
-    @GetMapping(path = "/users")
-    public List<User> getAllUsers() {
-        return usersDao.getAllUsers();
-    }
-
-    @GetMapping(path = "/teams")
-    public List<Team> getAllTeams() {
-        return teamsDao.getAllTeams();
-    }
-
-    @GetMapping(path = "/matches")
-    public List<Match> getAllMatches() {
-        return matchesDao.getAllMatches();
     }
 
     @PostConstruct
@@ -135,4 +119,32 @@ public class WM22Controller {
 
     }
 
+    @GetMapping(path = "/users")
+    public List<User> getAllUsers() {
+        return usersDao.getAllUsers();
+    }
+
+    @GetMapping(path = "/teams")
+    public List<Team> getAllTeams() {
+        return teamsDao.getAllTeams();
+    }
+
+    @GetMapping(path = "/matches")
+    public List<Match> getAllMatches() {
+        return matchesDao.getAllMatches();
+    }
+
+    @GetMapping(path = "/users/{email}")
+    public User getUserByEmail(@PathVariable String email) {
+        return usersDao.getUserByEmail(email);
+    }
+
+    @PostMapping(path = "register")
+    public ResponseEntity<Void> register(@RequestBody User user) {
+        if (usersDao.register(user) == 1) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }
