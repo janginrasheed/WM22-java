@@ -22,4 +22,7 @@ public interface UsersDao {
     @SqlQuery("select * from users where email = :email")
     User getUserByEmail(@Bind("email") String email);
 
+    @RegisterFieldMapper(User.class)
+    @SqlQuery("select * from users where email = :email and password = :password")
+    User getUser(@Bind String email, @Bind String password);
 }

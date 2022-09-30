@@ -9,7 +9,7 @@ create table users
     email      varchar(100) not null,
     first_name varchar(20)  not null,
     last_name  varchar(20)  not null,
-    password   varchar(16)  not null,
+    password   varchar(100)  not null,
     primary key (email)
 );
 

@@ -9,11 +9,11 @@ import com.wm22.domain.Match;
 import com.wm22.domain.Team;
 import com.wm22.domain.User;
 import com.wm22.model.Root;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
-import javax.websocket.server.PathParam;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ public class WM22Controller {
     }
 
     @PostConstruct
-    public void getDataFromApi() throws IOException, InterruptedException {
+    public void getDataFromApi() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
 
         Root root;
@@ -134,17 +134,35 @@ public class WM22Controller {
         return matchesDao.getAllMatches();
     }
 
-    @GetMapping(path = "/users/{email}")
+    @GetMapping(path = "/userbyemail/{email}")
     public User getUserByEmail(@PathVariable String email) {
         return usersDao.getUserByEmail(email);
     }
 
+    @GetMapping(path = "/user/{email}/{password}")
+    public User getUser(@PathVariable String email, @PathVariable String password) {
+        if (usersDao.getUser(email, password) == null)
+            return null;
+
+        if (BCrypt.checkpw(password, usersDao.getUser(email, password).getPassword())) {
+            System.out.println("It matches");
+            return usersDao.getUser(email, password);
+        } else {
+            System.out.println("It dous not matches");
+            return null;
+        }
+
+    }
+
     @PostMapping(path = "register")
     public ResponseEntity<Void> register(@RequestBody User user) {
+        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+
         if (usersDao.register(user) == 1) {
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.badRequest().build();
         }
     }
+
 }
