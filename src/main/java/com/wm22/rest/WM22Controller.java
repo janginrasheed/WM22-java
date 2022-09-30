@@ -141,12 +141,12 @@ public class WM22Controller {
 
     @GetMapping(path = "/user/{email}/{password}")
     public User getUser(@PathVariable String email, @PathVariable String password) {
-        if (usersDao.getUser(email, password) == null)
+        if (usersDao.getUserByEmail(email) == null)
             return null;
 
-        if (BCrypt.checkpw(password, usersDao.getUser(email, password).getPassword())) {
+        if (BCrypt.checkpw(password, usersDao.getUserByEmail(email).getPassword())) {
             System.out.println("It matches");
-            return usersDao.getUser(email, password);
+            return usersDao.getUserByEmail(email);
         } else {
             System.out.println("It dous not matches");
             return null;

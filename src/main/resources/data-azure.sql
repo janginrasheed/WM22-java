@@ -1,4 +1,4 @@
-insert into users values ('jangin9rasheed@gmail.com', 'Jangin', 'Rasheed', '123456');
+-- insert into users values ('jangin9rasheed@gmail.com', 'Jangin', 'Rasheed', '123456');
 
 insert into stages (stage)
 VALUES ('Group stage');
