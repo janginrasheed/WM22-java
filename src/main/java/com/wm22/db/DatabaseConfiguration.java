@@ -33,6 +33,11 @@ public class DatabaseConfiguration {
     }
 
     @Bean
+    public StagesDao stagesDao(Jdbi jdbi) {
+        return jdbi.onDemand(StagesDao.class);
+    }
+
+    @Bean
     public UsersDao usersDao(Jdbi jdbi) {
         return jdbi.onDemand(UsersDao.class);
     }

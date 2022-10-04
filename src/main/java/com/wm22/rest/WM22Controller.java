@@ -1,11 +1,9 @@
 package com.wm22.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wm22.db.MatchesDao;
-import com.wm22.db.PredictionsDao;
-import com.wm22.db.TeamsDao;
-import com.wm22.db.UsersDao;
+import com.wm22.db.*;
 import com.wm22.domain.Match;
+import com.wm22.domain.Stage;
 import com.wm22.domain.Team;
 import com.wm22.domain.User;
 import com.wm22.model.Root;
@@ -27,6 +25,7 @@ public class WM22Controller {
 
     MatchesDao matchesDao;
     PredictionsDao predictionsDao;
+    StagesDao stagesDao;
     UsersDao usersDao;
     TeamsDao teamsDao;
 
@@ -37,10 +36,12 @@ public class WM22Controller {
 
     public WM22Controller(MatchesDao matchesDao,
                           PredictionsDao predictionsDao,
+                          StagesDao stagesDao,
                           UsersDao usersDao,
                           TeamsDao teamsDao) {
         this.matchesDao = matchesDao;
         this.predictionsDao = predictionsDao;
+        this.stagesDao = stagesDao;
         this.usersDao = usersDao;
         this.teamsDao = teamsDao;
     }
@@ -119,6 +120,11 @@ public class WM22Controller {
 
     }
 
+    @GetMapping(path = "/stages")
+    public List<Stage> getStages() {
+        return stagesDao.getStages();
+    }
+
     @GetMapping(path = "/users")
     public List<User> getAllUsers() {
         return usersDao.getAllUsers();
@@ -134,7 +140,7 @@ public class WM22Controller {
         return matchesDao.getAllMatches();
     }
 
-    @GetMapping(path = "/userbyemail/{email}")
+    @GetMapping(path = "/userByEmail/{email}")
     public User getUserByEmail(@PathVariable String email) {
         return usersDao.getUserByEmail(email);
     }
@@ -148,7 +154,7 @@ public class WM22Controller {
             System.out.println("It matches");
             return usersDao.getUserByEmail(email);
         } else {
-            System.out.println("It dous not matches");
+            System.out.println("It does not matches");
             return null;
         }
 
