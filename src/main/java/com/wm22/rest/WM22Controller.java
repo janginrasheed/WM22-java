@@ -51,7 +51,8 @@ public class WM22Controller {
         ObjectMapper objectMapper = new ObjectMapper();
 
         Root root;
-        root = objectMapper.readValue(new File("src/main/resources/world_cup_matches.json"), Root.class);
+//        root = objectMapper.readValue(new File("src/main/resources/world_cup_matches.json"), Root.class);
+        root = objectMapper.readValue(new File("world_cup_matches.json"), Root.class);
 
         insertDataInDB(root);
     }
