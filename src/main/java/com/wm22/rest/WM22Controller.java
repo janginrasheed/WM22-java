@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -47,13 +51,19 @@ public class WM22Controller {
     }
 
     @PostConstruct
-    public void getDataFromApi() throws IOException {
+    public void getDataFromApi() throws IOException, InterruptedException {
         ObjectMapper objectMapper = new ObjectMapper();
 
-        Root root;
+//        Root root;
 //        root = objectMapper.readValue(new File("src/main/resources/world_cup_matches.json"), Root.class);
-        root = objectMapper.readValue(new File("world_cup_matches.json"), Root.class);
 
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://api.football-data.org/v4/competitions/WC/matches"))
+                .header("X-Auth-Token", "bf68569154884d98b8a336180242686d")
+                .build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        Root root = objectMapper.readValue(response.body(), Root.class);
         insertDataInDB(root);
     }
 
