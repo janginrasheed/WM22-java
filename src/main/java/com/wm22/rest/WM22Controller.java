@@ -46,7 +46,7 @@ public class WM22Controller {
         this.teamsDao = teamsDao;
     }
 
-    @PostConstruct
+//    @PostConstruct
     public void getDataFromApi() throws IOException, InterruptedException {
         ObjectMapper objectMapper = new ObjectMapper();
 
