@@ -12,11 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @CrossOrigin("*")
 @RestController
@@ -46,11 +46,11 @@ public class WM22Controller {
         this.teamsDao = teamsDao;
     }
 
-//    @PostConstruct
+        @PostConstruct
     public void getDataFromApi() throws IOException, InterruptedException {
         ObjectMapper objectMapper = new ObjectMapper();
 
-        Root root = objectMapper.readValue(new File("src/main/resources/world_cup_matches.json"), Root.class);
+//        Root root = objectMapper.readValue(new File("src/main/resources/world_cup_matches.json"), Root.class);
 /*
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -60,6 +60,13 @@ public class WM22Controller {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         Root root = objectMapper.readValue(response.body(), Root.class);
 */
+
+        InputStream inputStream = getClass().getResourceAsStream("/world_cup_matches.json");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        String contents = reader.lines().collect(Collectors.joining(System.lineSeparator()));
+
+        Root root = objectMapper.readValue(contents, Root.class);
+
         insertDataInDB(root);
     }
 
