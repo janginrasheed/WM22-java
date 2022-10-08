@@ -2,17 +2,17 @@ package com.wm22.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wm22.db.*;
-import com.wm22.domain.Match;
-import com.wm22.domain.Stage;
-import com.wm22.domain.Team;
-import com.wm22.domain.User;
+import com.wm22.domain.*;
 import com.wm22.model.Root;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,6 +33,7 @@ public class WM22Controller {
     ArrayList<Team> teamsToInsert = new ArrayList<>();
     Match matchToInsert;
     ArrayList<Match> matchesToInsert;
+    char[] groups = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'};
 
     public WM22Controller(MatchesDao matchesDao,
                           PredictionsDao predictionsDao,
@@ -47,11 +48,11 @@ public class WM22Controller {
     }
 
     @PostConstruct
-    public void getDataFromApi() throws IOException, InterruptedException {
+    public void getDataFromApi() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
 
 
-        /** Daten von API abholen ************
+        /* Daten von API abholen ************
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.football-data.org/v4/competitions/WC/matches"))
@@ -66,6 +67,7 @@ public class WM22Controller {
 
         // Daten mit InputStream lokal abholen - funktioniert mit Azure
         InputStream inputStream = getClass().getResourceAsStream("/world_cup_matches.json");
+        assert inputStream != null;
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String contents = reader.lines().collect(Collectors.joining(System.lineSeparator()));
         Root root = objectMapper.readValue(contents, Root.class);
@@ -188,5 +190,17 @@ public class WM22Controller {
         }
     }
 
+    @GetMapping(path = "/teamsGroups")
+    public List<GroupDetails> getGroupsDetails() {
+        List<GroupDetails> groupsDetails = new ArrayList<>();
+
+        for (char group : groups) {
+            List<Team> groupTeams = teamsDao.getTeamByGroupName(group);
+            GroupDetails groupDetails = new GroupDetails();
+            groupDetails.setGroupTeams(groupTeams);
+            groupsDetails.add(groupDetails);
+        }
+
+        return groupsDetails;
+    }
 }
-//Test

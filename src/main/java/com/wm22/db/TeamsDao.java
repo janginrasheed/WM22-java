@@ -22,4 +22,8 @@ public interface TeamsDao {
     @SqlQuery("select * from teams where id = :teamId")
     Team getTeamById(@Bind("teamId") int teamId);
 
+    @RegisterFieldMapper(Team.class)
+    @SqlQuery("select * from teams where UPPER(group_name) = :groupName")
+    List<Team> getTeamByGroupName(@Bind("groupName") char groupName);
+
 }
