@@ -46,12 +46,12 @@ public class WM22Controller {
         this.teamsDao = teamsDao;
     }
 
-        @PostConstruct
+    @PostConstruct
     public void getDataFromApi() throws IOException, InterruptedException {
         ObjectMapper objectMapper = new ObjectMapper();
 
-//        Root root = objectMapper.readValue(new File("src/main/resources/world_cup_matches.json"), Root.class);
-/*
+
+        /** Daten von API abholen ************
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.football-data.org/v4/competitions/WC/matches"))
@@ -59,12 +59,15 @@ public class WM22Controller {
                 .build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         Root root = objectMapper.readValue(response.body(), Root.class);
-*/
+        */
 
+        // Daten lokal abholen - funktioniert mit Azure nicht
+        // Root root = objectMapper.readValue(new File("src/main/resources/world_cup_matches.json"), Root.class);
+
+        // Daten mit InputStream lokal abholen - funktioniert mit Azure
         InputStream inputStream = getClass().getResourceAsStream("/world_cup_matches.json");
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String contents = reader.lines().collect(Collectors.joining(System.lineSeparator()));
-
         Root root = objectMapper.readValue(contents, Root.class);
 
         insertDataInDB(root);
