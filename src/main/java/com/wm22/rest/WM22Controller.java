@@ -26,6 +26,7 @@ public class WM22Controller {
     MatchesDao matchesDao;
     PredictionsDao predictionsDao;
     StagesDao stagesDao;
+    RolesDao rolesDao;
     UsersDao usersDao;
     TeamsDao teamsDao;
 
@@ -38,11 +39,13 @@ public class WM22Controller {
     public WM22Controller(MatchesDao matchesDao,
                           PredictionsDao predictionsDao,
                           StagesDao stagesDao,
+                          RolesDao rolesDao,
                           UsersDao usersDao,
                           TeamsDao teamsDao) {
         this.matchesDao = matchesDao;
         this.predictionsDao = predictionsDao;
         this.stagesDao = stagesDao;
+        this.rolesDao = rolesDao;
         this.usersDao = usersDao;
         this.teamsDao = teamsDao;
     }
@@ -142,6 +145,11 @@ public class WM22Controller {
     @GetMapping(path = "/stages")
     public List<Stage> getStages() {
         return stagesDao.getStages();
+    }
+
+    @GetMapping(path = "/roles")
+    public List<Role> getRoles() {
+        return rolesDao.getRoles();
     }
 
     @GetMapping(path = "/users")

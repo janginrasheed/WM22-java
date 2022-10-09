@@ -2,14 +2,22 @@ drop table if EXISTS matches;
 drop table if EXISTS predictions;
 drop table if EXISTS teams;
 drop table if EXISTS stages;
+drop table if EXISTS roles;
 drop TABLE if EXISTS users;
+
+create table roles
+(
+    id    int         not null IDENTITY(1,1),
+    role varchar(20) not null,
+    primary key (id)
+);
 
 create table users
 (
     email      varchar(100) not null,
     first_name varchar(20)  not null,
     last_name  varchar(20)  not null,
-    password   varchar(100)  not null,
+    password   varchar(100) not null,
     primary key (email)
 );
 

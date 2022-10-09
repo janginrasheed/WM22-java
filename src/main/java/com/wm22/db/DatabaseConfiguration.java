@@ -38,6 +38,11 @@ public class DatabaseConfiguration {
     }
 
     @Bean
+    public RolesDao rolesDao(Jdbi jdbi) {
+        return jdbi.onDemand(RolesDao.class);
+    }
+
+    @Bean
     public UsersDao usersDao(Jdbi jdbi) {
         return jdbi.onDemand(UsersDao.class);
     }
