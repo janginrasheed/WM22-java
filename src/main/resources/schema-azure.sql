@@ -1,16 +1,27 @@
+/*
 drop table if EXISTS matches;
 drop table if EXISTS predictions;
 drop table if EXISTS teams;
 drop table if EXISTS stages;
 drop TABLE if EXISTS users;
+drop table if EXISTS roles;
+
+create table roles
+(
+    id   int         not null IDENTITY(1,1),
+    role varchar(20) not null,
+    primary key (id)
+);
 
 create table users
 (
     email      varchar(100) not null,
     first_name varchar(20)  not null,
     last_name  varchar(20)  not null,
-    password   varchar(100)  not null,
-    primary key (email)
+    password   varchar(100) not null,
+    role_id    int          not null,
+    primary key (email),
+    foreign key (role_id) references roles (id)
 );
 
 create table stages
@@ -61,3 +72,4 @@ create table predictions
     foreign key (first_team_id) references teams (id),
     foreign key (second_team_id) references teams (id)
 );
+*/

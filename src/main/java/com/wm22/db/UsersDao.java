@@ -15,7 +15,7 @@ public interface UsersDao {
     List<User> getAllUsers();
 
     @RegisterFieldMapper(User.class)
-    @SqlUpdate("insert into users values (:email, :firstName, :lastName, :password)")
+    @SqlUpdate("insert into users values (:email, :firstName, :lastName, :password, :roleId)")
     int register(@BindBean User user);
 
     @RegisterFieldMapper(User.class)
