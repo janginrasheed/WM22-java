@@ -35,6 +35,7 @@ public class WM22Controller {
     Match matchToInsert;
     ArrayList<Match> matchesToInsert;
     char[] groups = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'};
+    int matchId = 0;
 
     public WM22Controller(MatchesDao matchesDao,
                           PredictionsDao predictionsDao,
@@ -49,8 +50,8 @@ public class WM22Controller {
         this.usersDao = usersDao;
         this.teamsDao = teamsDao;
     }
-/*
-    @PostConstruct
+
+//    @PostConstruct
     public void getDataFromApi() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -66,7 +67,7 @@ public class WM22Controller {
 
         insertDataInDB(root);
     }
-*/
+
     public void insertDataInDB(Root root) {
         matchesToInsert = new ArrayList<>();
 
@@ -91,16 +92,17 @@ public class WM22Controller {
 
         //Matches Tabelle ausfüllen
         root.matches.forEach(match -> {
+            matchId += 1;
             matchToInsert = new Match();
             if (Objects.equals(match.stage, "GROUP_STAGE")) {
-                matchToInsert.setId(match.id);
+                matchToInsert.setId(matchId);
                 matchToInsert.setStageId(1);
                 matchToInsert.setFirstTeamId(match.homeTeam.id);
                 matchToInsert.setSecondTeamId(match.awayTeam.id);
                 matchToInsert.setDate(match.utcDate);
                 matchesDao.insertMatchWithTeams(matchToInsert);
             } else {
-                matchToInsert.setId(match.id);
+                matchToInsert.setId(matchId);
                 switch (match.stage) {
                     case "LAST_16": {
                         matchToInsert.setStageId(2);
