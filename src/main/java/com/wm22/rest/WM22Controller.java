@@ -51,7 +51,18 @@ public class WM22Controller {
         this.teamsDao = teamsDao;
     }
 
-//    @PostConstruct
+    @PostConstruct
+    public void setAdmin() {
+        User user = new User();
+        user.setEmail("jangin9rasheed@gmail.com");
+        user.setFirstName("Jangin");
+        user.setLastName("Rasheed");
+        user.setPassword("123456");
+        user.setRoleId(1);
+        register(user);
+    }
+
+    //    @PostConstruct
     public void getDataFromApi() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
 
