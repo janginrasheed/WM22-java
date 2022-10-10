@@ -21,4 +21,8 @@ public interface MatchesDao {
     @SqlUpdate("insert into matches (id, stage_id, date) values (:id, :stageId, :date)")
     int insertMatch(@BindBean Match match);
 
+    @RegisterFieldMapper(Match.class)
+    @SqlUpdate("update matches set first_team_goals = :firstTeamGoals, second_team_goals = :secondTeamGoals where id = :id")
+    int updateMatchByMatchId(@BindBean int matchid, @BindBean Match match);
+
 }

@@ -51,7 +51,7 @@ public class WM22Controller {
         this.teamsDao = teamsDao;
     }
 
-    @PostConstruct
+    @GetMapping(path = "/setNewAdmin")
     public void setAdmin() {
         User user = new User();
         user.setEmail("jangin9rasheed@gmail.com");
@@ -169,6 +169,15 @@ public class WM22Controller {
         return matchesDao.getAllMatches();
     }
 
+    @PutMapping(path = "/matches/updateMatch/{matchId}")
+    public ResponseEntity<Void> updateMatchByMatchId(@PathVariable int matchId, @RequestBody Match match) {
+        if (matchesDao.updateMatchByMatchId(matchId, match) == 1) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @GetMapping(path = "/userByEmail/{email}")
     public User getUserByEmail(@PathVariable String email) {
         return usersDao.getUserByEmail(email);
@@ -211,4 +220,5 @@ public class WM22Controller {
 
         return groupsDetails;
     }
+
 }
