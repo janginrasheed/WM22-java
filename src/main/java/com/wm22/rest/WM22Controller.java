@@ -49,21 +49,10 @@ public class WM22Controller {
         this.usersDao = usersDao;
         this.teamsDao = teamsDao;
     }
-
+/*
     @PostConstruct
     public void getDataFromApi() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-
-
-        /* Daten von API abholen ************
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://api.football-data.org/v4/competitions/WC/matches"))
-                .header("X-Auth-Token", "bf68569154884d98b8a336180242686d")
-                .build();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        Root root = objectMapper.readValue(response.body(), Root.class);
-        */
 
         // Daten lokal abholen - funktioniert mit Azure nicht
         // Root root = objectMapper.readValue(new File("src/main/resources/world_cup_matches.json"), Root.class);
@@ -77,7 +66,7 @@ public class WM22Controller {
 
         insertDataInDB(root);
     }
-
+*/
     public void insertDataInDB(Root root) {
         matchesToInsert = new ArrayList<>();
 
@@ -178,10 +167,8 @@ public class WM22Controller {
             return null;
 
         if (BCrypt.checkpw(password, usersDao.getUserByEmail(email).getPassword())) {
-            System.out.println("It matches");
             return usersDao.getUserByEmail(email);
         } else {
-            System.out.println("It does not matches");
             return null;
         }
 

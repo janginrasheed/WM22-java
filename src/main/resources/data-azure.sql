@@ -1,3 +1,4 @@
+/*
 insert into roles (role)
 VALUES ('admin');
 insert into roles (role)
@@ -20,3 +21,4 @@ insert into stages (stage)
 VALUES ('Third place');
 insert into stages (stage)
 VALUES ('Final');
+*/

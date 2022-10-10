@@ -1,3 +1,4 @@
+/*
 drop table if EXISTS matches;
 drop table if EXISTS predictions;
 drop table if EXISTS teams;
@@ -71,3 +72,4 @@ create table predictions
     foreign key (first_team_id) references teams (id),
     foreign key (second_team_id) references teams (id)
 );
+*/
