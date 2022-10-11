@@ -10,10 +10,10 @@ public class Match {
     private int id;
     private int stageId;
     private int firstTeamId;
-    private int firstTeamGoals;
+    private String firstTeamGoals;
     private int firstTeamPenaltiesGoals;
     private int secondTeamId;
-    private int secondTeamGoals;
+    private String secondTeamGoals;
     private int secondTeamPenaltiesGoals;
     private Date date;
 }
