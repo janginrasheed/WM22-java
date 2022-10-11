@@ -8,7 +8,6 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -169,9 +168,18 @@ public class WM22Controller {
         return matchesDao.getAllMatches();
     }
 
-    @PutMapping(path = "/matches/updateMatch/{matchId}")
-    public ResponseEntity<Void> updateMatchByMatchId(@PathVariable int matchId, @RequestBody Match match) {
-        if (matchesDao.updateMatchByMatchId(matchId, match) == 1) {
+    @PutMapping(path = "/matches/updateMatchResult/{matchId}")
+    public ResponseEntity<Void> updateMatchResult(@PathVariable int matchId, @RequestBody Match match) {
+        if (matchesDao.updateMatchResult(matchId, match) == 1) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PutMapping(path = "/matches/updateMatchTeams/{matchId}")
+    public ResponseEntity<Void> updateMatchTeams(@PathVariable int matchId, @RequestBody Match match) {
+        if (matchesDao.updateMatchTeams(matchId, match) == 1) {
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.badRequest().build();

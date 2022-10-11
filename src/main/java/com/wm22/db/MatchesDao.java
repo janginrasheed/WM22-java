@@ -23,6 +23,10 @@ public interface MatchesDao {
 
     @RegisterFieldMapper(Match.class)
     @SqlUpdate("update matches set first_team_goals = :firstTeamGoals, second_team_goals = :secondTeamGoals where id = :id")
-    int updateMatchByMatchId(@BindBean int matchid, @BindBean Match match);
+    int updateMatchResult(@BindBean int matchid, @BindBean Match match);
+
+    @RegisterFieldMapper(Match.class)
+    @SqlUpdate("update matches set first_team_id = :firstTeamId, second_team_id = :secondTeamId where id = :id")
+    int updateMatchTeams(@BindBean int matchid, @BindBean Match match);
 
 }
