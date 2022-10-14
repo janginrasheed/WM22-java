@@ -18,12 +18,8 @@ insert into stages (stage)
 VALUES ('Third place');
 insert into stages (stage)
 VALUES ('Final');
-
-//TODO delete
-insert into teams (id, name)
-values (0, '');
 */
-/**/
+/*
 update matches set first_team_goals = '2', second_team_goals = '0' where id = 1;
 update matches set first_team_goals = '2', second_team_goals = '1' where id = 2;
 update matches set first_team_goals = '1', second_team_goals = '1' where id = 3;
@@ -72,4 +68,4 @@ update matches set first_team_goals = '2', second_team_goals = '1' where id = 45
 update matches set first_team_goals = '1', second_team_goals = '0' where id = 46;
 update matches set first_team_goals = '0', second_team_goals = '2' where id = 47;
 update matches set first_team_goals = '1', second_team_goals = '3' where id = 48;
-/**/
+*/

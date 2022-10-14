@@ -1,6 +1,6 @@
 /*
-drop table if EXISTS matches;
 drop table if EXISTS predictions;
+drop table if EXISTS matches;
 drop table if EXISTS teams;
 drop table if EXISTS stages;
 drop TABLE if EXISTS users;
@@ -65,11 +65,12 @@ create table predictions
     email          varchar(100) not null,
     first_team_id  int,
     second_team_id int,
-    group_name     char(1),
     match_number   int,
+    group_name     char(1),
     primary key (id),
     foreign key (email) references users (email),
     foreign key (first_team_id) references teams (id),
-    foreign key (second_team_id) references teams (id)
+    foreign key (second_team_id) references teams (id),
+    foreign key (match_number) references matches (id)
 );
 */

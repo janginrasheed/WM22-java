@@ -64,7 +64,7 @@ public class WM22Controller {
         register(user);
     }
 
-    //    @PostConstruct
+//        @PostConstruct
     public void getDataFromApi() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
 
