@@ -38,7 +38,7 @@ create table teams
     name       varchar(20) not null,
     short_name char(3),
     flag       varchar(100),
-    group_name CHAR(1)     not null,
+    group_name CHAR(1),
     primary key (id)
 );
 
