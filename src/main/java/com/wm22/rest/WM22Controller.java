@@ -16,12 +16,14 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/")
 public class WM22Controller {
+    Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     MatchesDao matchesDao;
     PredictionsDao predictionsDao;
@@ -62,7 +64,7 @@ public class WM22Controller {
         register(user);
     }
 
-//    @PostConstruct
+    //    @PostConstruct
     public void getDataFromApi() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -172,10 +174,8 @@ public class WM22Controller {
     @PutMapping(path = "/matches/updateMatchResult/{matchId}")
     public ResponseEntity<Void> updateMatchResult(@PathVariable int matchId, @RequestBody Match match) {
         if (matchesDao.updateMatchResult(matchId, match) == 1) {
-            System.out.printf("update matches set first_team_goals = %s, second_team_goals = %s where id = %d%n",
-                    match.getFirstTeamGoals(),
-                    match.getSecondTeamGoals(),
-                    match.getId());
+            logger.info("*** update matches set first_team_goals = '" + match.getFirstTeamGoals() +
+                    "', second_team_goals = '" + match.getSecondTeamGoals() + "' where id = " + match.getId());
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.badRequest().build();
@@ -185,11 +185,8 @@ public class WM22Controller {
     @PutMapping(path = "/matches/updateMatchTeams/{matchId}")
     public ResponseEntity<Void> updateMatchTeams(@PathVariable int matchId, @RequestBody Match match) {
         if (matchesDao.updateMatchTeams(matchId, match) == 1) {
-            System.out.printf("update matches set first_team_id = %s, second_team_id = %s where id = %d%n",
-                    match.getFirstTeamId(),
-                    match.getSecondTeamId(),
-                    match.getId());
-
+            logger.info("*** update matches set first_team_id = '" + match.getFirstTeamId() +
+                    "', second_team_id = '" + match.getSecondTeamId() + "' where id = " + match.getId());
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.badRequest().build();
