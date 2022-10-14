@@ -18,6 +18,9 @@ insert into stages (stage)
 VALUES ('Third place');
 insert into stages (stage)
 VALUES ('Final');
+
+insert into teams (id, name)
+values (0, '');
 */
 /*
 update matches set first_team_goals = '2', second_team_goals = '0' where id = 1;
