@@ -64,7 +64,7 @@ public class WM22Controller {
         register(user);
     }
 
-//        @PostConstruct
+    //        @PostConstruct
     public void getDataFromApi() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -213,6 +213,7 @@ public class WM22Controller {
 
     @PostMapping(path = "register")
     public ResponseEntity<Void> register(@RequestBody User user) {
+        System.out.println("Hi from Register");
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
 
         if (usersDao.register(user) == 1) {
@@ -234,6 +235,23 @@ public class WM22Controller {
         }
 
         return groupsDetails;
+    }
+
+    @GetMapping(path = "/predictions")
+    public List<Prediction> getPredictions() {
+        return predictionsDao.getAllPredictions();
+    }
+
+    @GetMapping(path = "/predictions/{email}")
+    public List<Prediction> predictionsByEmail(@PathVariable String email) {
+        return predictionsDao.getPredictionsByEmail(email);
+    }
+
+    @PostMapping(path = "submitPredictions")
+    public void submitPredictions(@RequestBody Prediction[] predictions) {
+        for (Prediction prediction : predictions) {
+            predictionsDao.setPrediction(prediction);
+        }
     }
 
 }

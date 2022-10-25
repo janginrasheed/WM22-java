@@ -61,7 +61,7 @@ create table matches
 
 create table predictions
 (
-    id             int          not null,
+    id             int          not null IDENTITY(1,1),
     email          varchar(100) not null,
     first_team_id  int,
     second_team_id int,

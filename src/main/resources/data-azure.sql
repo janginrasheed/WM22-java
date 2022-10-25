@@ -6,6 +6,7 @@ VALUES ('editor');
 insert into roles (role)
 VALUES ('user');
 
+//TODO simplify the insert
 insert into stages (stage)
 VALUES ('Group stage');
 insert into stages (stage)
