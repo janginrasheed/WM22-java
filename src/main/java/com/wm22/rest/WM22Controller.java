@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.NoResultException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -252,6 +253,16 @@ public class WM22Controller {
         for (Prediction prediction : predictions) {
             predictionsDao.setPrediction(prediction);
         }
+    }
+
+    @DeleteMapping(path = "deletePredictions/{email}")
+    public int deletePredictions(@PathVariable String email) {
+        try {
+            predictionsDao.deletePredictions(email);
+        } catch (Exception exception) {
+            return 0;
+        }
+        return 0;
     }
 
 }
