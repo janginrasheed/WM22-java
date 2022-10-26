@@ -67,6 +67,7 @@ create table predictions
     second_team_id int,
     match_number   int,
     group_name     char(1),
+	date			datetime,
     primary key (id),
     foreign key (email) references users (email),
     foreign key (first_team_id) references teams (id),

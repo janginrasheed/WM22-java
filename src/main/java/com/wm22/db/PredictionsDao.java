@@ -19,7 +19,7 @@ public interface PredictionsDao {
     List<Prediction> getPredictionsByEmail(@Bind("email") String email);
 
     @RegisterFieldMapper(Prediction.class)
-    @SqlUpdate("insert into predictions (email, first_team_id, second_team_id, match_number, group_name) values (:email, :firstTeamId, :secondTeamId, :matchNumber, :groupName)")
+    @SqlUpdate("insert into predictions (email, first_team_id, second_team_id, match_number, group_name, date) values (:email, :firstTeamId, :secondTeamId, :matchNumber, :groupName, current_timestamp)")
     int setPrediction(@BindBean Prediction prediction);
 
 }

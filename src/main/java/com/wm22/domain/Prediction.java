@@ -12,4 +12,5 @@ public class Prediction {
     private int secondTeamId;
     private char groupName;
     private int matchNumber;
+    private String date;
 }
