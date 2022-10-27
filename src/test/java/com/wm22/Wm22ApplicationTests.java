@@ -14,13 +14,8 @@ class Wm22ApplicationTests {
 
     @Test
     public void checkMatchResult() {
-//		@Autowired
-//		MatchesDao matchesDao = null;
-//		Match match = new Match();
-
-        String firstTeamGoals = "1.5";
+        String firstTeamGoals = "1";
         String secondTeamGoals = "0";
-
 
         assertTrue(Integer.parseInt(firstTeamGoals) > -1);
         assertTrue(Integer.parseInt(secondTeamGoals) > -1);
