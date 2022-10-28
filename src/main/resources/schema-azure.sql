@@ -58,7 +58,6 @@ create table matches
     foreign key (first_team_id) references teams (id),
     foreign key (second_team_id) references teams (id)
 );
-
 create table predictions
 (
     id             int          not null IDENTITY(1,1),
@@ -67,11 +66,10 @@ create table predictions
     second_team_id int,
     match_number   int,
     group_name     char(1),
-	date			datetime,
+	predict_date   datetime,
     primary key (id),
     foreign key (email) references users (email),
     foreign key (first_team_id) references teams (id),
     foreign key (second_team_id) references teams (id),
     foreign key (match_number) references matches (id)
-);
-*/
+);*/
