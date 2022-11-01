@@ -29,4 +29,8 @@ public interface MatchesDao {
     @SqlUpdate("update matches set first_team_id = :firstTeamId, second_team_id = :secondTeamId where id = :id")
     int updateMatchTeams(@BindBean int matchid, @BindBean Match match);
 
+    @RegisterFieldMapper(Match.class)
+    @SqlUpdate("update matches set first_team_id = 0, second_team_id = 0 where id > 48")
+    int clearKOStagesTeams();
+
 }

@@ -194,6 +194,13 @@ public class WM22Controller {
         }
     }
 
+    @PutMapping(path = "/matches/clearKOStagesTeams/{dummy}")
+    public void clearKOStagesTeams(@PathVariable int dummy) {
+        System.out.println("ClearKOStagesTeams");
+        matchesDao.clearKOStagesTeams();
+    }
+
+
     @GetMapping(path = "/userByEmail/{email}")
     public User getUserByEmail(@PathVariable String email) {
         return usersDao.getUserByEmail(email);
@@ -256,13 +263,8 @@ public class WM22Controller {
     }
 
     @DeleteMapping(path = "deletePredictions/{email}")
-    public int deletePredictions(@PathVariable String email) {
-        try {
-            predictionsDao.deletePredictions(email);
-        } catch (Exception exception) {
-            return 0;
-        }
-        return 0;
+    public void deletePredictions(@PathVariable String email) {
+        predictionsDao.deletePredictions(email);
     }
 
 }

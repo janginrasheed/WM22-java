@@ -23,7 +23,7 @@ public interface PredictionsDao {
     int setPrediction(@BindBean Prediction prediction);
 
     @RegisterFieldMapper(Prediction.class)
-    @SqlQuery("delete from predictions where email like :email")
+    @SqlUpdate("delete from predictions where email like :email")
     int deletePredictions(@Bind("email") String email);
 }
 //@SqlQuery("select id, email, first_team_id, second_team_id, match_number, group_name, predict_date AT TIME ZONE 'UTC' AT TIME ZONE 'Central European Standard Time' from predictions")
