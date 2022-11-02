@@ -175,8 +175,6 @@ public class WM22Controller {
     @PutMapping(path = "/matches/updateMatchResult/{matchId}")
     public ResponseEntity<Void> updateMatchResult(@PathVariable int matchId, @RequestBody Match match) {
         if (matchesDao.updateMatchResult(matchId, match) == 1) {
-            logger.info("*** update matches set first_team_goals = '" + match.getFirstTeamGoals() +
-                    "', second_team_goals = '" + match.getSecondTeamGoals() + "' where id = " + match.getId());
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.badRequest().build();
@@ -186,8 +184,6 @@ public class WM22Controller {
     @PutMapping(path = "/matches/updateMatchTeams/{matchId}")
     public ResponseEntity<Void> updateMatchTeams(@PathVariable int matchId, @RequestBody Match match) {
         if (matchesDao.updateMatchTeams(matchId, match) == 1) {
-            logger.info("*** update matches set first_team_id = '" + match.getFirstTeamId() +
-                    "', second_team_id = '" + match.getSecondTeamId() + "' where id = " + match.getId());
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.badRequest().build();
@@ -196,7 +192,6 @@ public class WM22Controller {
 
     @PutMapping(path = "/matches/clearKOStagesTeams/{dummy}")
     public void clearKOStagesTeams(@PathVariable int dummy) {
-        System.out.println("ClearKOStagesTeams");
         matchesDao.clearKOStagesTeams();
     }
 
@@ -221,7 +216,6 @@ public class WM22Controller {
 
     @PostMapping(path = "register")
     public ResponseEntity<Void> register(@RequestBody User user) {
-        System.out.println("Hi from Register");
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
 
         if (usersDao.register(user) == 1) {
