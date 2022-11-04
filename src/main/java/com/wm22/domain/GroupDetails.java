@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Struktur für die Gruppendaten, wird für die Ausgabe der Gruppendaten genutzt
+ */
 @Data
 @NoArgsConstructor
 public class GroupDetails {

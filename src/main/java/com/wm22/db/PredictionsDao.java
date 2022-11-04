@@ -9,6 +9,9 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 
 import java.util.List;
 
+/**
+ * In diesem Interface sind die Methoden die, die SQL Abfragen in der Predictions-Tabelle durchführen
+ */
 public interface PredictionsDao {
     @RegisterFieldMapper(Prediction.class)
     @SqlQuery("select * from predictions")
@@ -26,4 +29,3 @@ public interface PredictionsDao {
     @SqlUpdate("delete from predictions where email like :email")
     int deletePredictions(@Bind("email") String email);
 }
-//@SqlQuery("select id, email, first_team_id, second_team_id, match_number, group_name, predict_date AT TIME ZONE 'UTC' AT TIME ZONE 'Central European Standard Time' from predictions")

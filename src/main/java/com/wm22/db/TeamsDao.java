@@ -9,6 +9,9 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 
 import java.util.List;
 
+/**
+ * In diesem Interface sind die Methoden die, die SQL Abfragen in der Teams-Tabelle durchführen
+ */
 public interface TeamsDao {
     @RegisterFieldMapper(Team.class)
     @SqlQuery("select * from teams")

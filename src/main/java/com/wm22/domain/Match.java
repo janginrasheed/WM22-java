@@ -4,6 +4,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.Date;
 
+/**
+ * Beinhaltet die Attribute die für das Strukturieren von der Matches-Tabelle genutzt wird
+ */
 @Data
 @NoArgsConstructor
 public class Match {
